@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Senior Open 2026 – Schedule</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
+
+    /* ── Top nav ── */
+    nav.top-nav {
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: relative;
+    }
+    .nav-links {
+      display: flex;
+    }
+    nav.top-nav a {
+      color: #ccc;
+      text-decoration: none;
+      padding: 16px 28px;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      display: block;
+      transition: background 0.2s, color 0.2s;
+    }
+    nav.top-nav a:hover { background: #1a1a1a; color: #fff; }
+    nav.top-nav a.active { background: #2EB4EA; color: #000; }
+
+    /* Hamburger button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 12px 8px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #ccc;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Page header ── */
+    .page-header {
+      background: #2EB4EA;
+      color: #000;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid #1a9fd4;
+    }
+    .page-header img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    .page-header-text h1 { font-size: 24px; }
+    .page-header-text p { color: rgba(0,0,0,0.55); margin-top: 3px; font-size: 13px; }
+
+    /* ── Content ── */
+    .content { padding: 24px; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .legend-item::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+    }
+    .legend-item.mens::before  { background: #f2a7b5; }
+    .legend-item.ladies::before { background: #f5e27a; }
+    .legend-item.second::before { background: #8fcf8f; }
+    .legend-item.fifth::before  { background: #87cce8; }
+
+    /* ── Schedule table ── */
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    table.schedule {
+      border-collapse: collapse;
+      min-width: 820px;
+      width: 100%;
+      background: #fff;
+      font-size: 12px;
+    }
+
+    table.schedule th {
+      background: #111;
+      color: #fff;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    table.schedule th.col-date,
+    table.schedule th.col-time { text-align: left; padding-left: 12px; }
+
+    table.schedule td {
+      border: 1px solid #e0e0e0;
+      padding: 6px 8px;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+
+    td.date-col {
+      white-space: nowrap;
+      font-size: 12px;
+      color: #555;
+      padding-left: 12px;
+      font-weight: 600;
+    }
+    td.time-col {
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 13px;
+      padding-left: 12px;
+      color: #333;
+    }
+
+    /* Day header row */
+    tr.day-row td {
+      background: #111;
+      color: #fff;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      padding: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* Special events */
+    td.special {
+      background: #d0d0d0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 13px;
+      color: #333;
+      padding: 10px;
+    }
+
+    /* Event colours */
+    td.mens   { background: #f2a7b5; color: #5a0010; }
+    td.ladies { background: #f5e27a; color: #5a4a00; }
+    td.second { background: #8fcf8f; color: #0a3d0a; }
+    td.fifth  { background: #87cce8; color: #00304d; }
+    td.empty  { background: #eeeeee; border: 2px solid #d5d5d5; }
+
+    /* All event cells */
+    td.mens, td.ladies, td.second, td.fifth {
+      font-weight: 600;
+      text-align: center;
+      font-size: 11.5px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #111111;
+        z-index: 100;
+        border-top: 1px solid #2a2a2a;
+      }
+      .nav-links.open { display: flex; }
+
+      nav.top-nav a {
+        padding: 14px 24px;
+        border-bottom: 1px solid #2a2a2a;
+      }
+
+      .page-header { padding: 16px 20px; }
+      .page-header img { height: 44px; }
+      .page-header-text h1 { font-size: 20px; }
+
+      .content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-links" id="navLinks">
+      <a href="groups.html">Groups</a>
+      <a href="knockouts.html">Knockouts</a>
+      <a href="schedule.html" class="active">Schedule</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <img src="logo.png" alt="Senior Open 2026 Logo" />
+    <div class="page-header-text">
+      <h1>Schedule</h1>
+      <p>Senior Open 2026</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Legend -->
+    <div class="legend">
+      <span class="legend-item mens">Men's Open</span>
+      <span class="legend-item ladies">Ladies Open</span>
+      <span class="legend-item second">2nd &amp; Below</span>
+      <span class="legend-item fifth">5th &amp; Below</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th class="col-date">Date</th>
+            <th class="col-time">Time</th>
+            <th>1</th><th>2</th><th>3</th><th>4</th>
+            <th>5</th><th>6</th><th>7</th><th>8</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- ══ DAY 1 ══ -->
+          <tr class="day-row"><td colspan="10">Day 1</td></tr>
+
+          <tr>
+            <td class="date-col">29-May-26</td>
+            <td class="time-col">19:00</td>
+            <td class="special" colspan="8">Welcoming</td>
+          </tr>
+          <!-- Groups 4-10 repeat across all 3 rows (span 3 time slots) -->
+          <tr>
+            <td class="date-col">29-May-26</td>
+            <td class="time-col">19:15</td>
+            <td class="mens">Men's<br>Group 1</td>
+            <td class="mens">Men's<br>Group 4</td>
+            <td class="mens">Men's<br>Group 5</td>
+            <td class="mens">Men's<br>Group 6</td>
+            <td class="mens">Men's<br>Group 7</td>
+            <td class="mens">Men's<br>Group 8</td>
+            <td class="mens">Men's<br>Group 9</td>
+            <td class="mens">Men's<br>Group 10</td>
+          </tr>
+          <tr>
+            <td class="date-col">29-May-26</td>
+            <td class="time-col">20:15</td>
+            <td class="mens">Men's<br>Group 2</td>
+            <td class="mens">Men's<br>Group 4</td>
+            <td class="mens">Men's<br>Group 5</td>
+            <td class="mens">Men's<br>Group 6</td>
+            <td class="mens">Men's<br>Group 7</td>
+            <td class="mens">Men's<br>Group 8</td>
+            <td class="mens">Men's<br>Group 9</td>
+            <td class="mens">Men's<br>Group 10</td>
+          </tr>
+          <tr>
+            <td class="date-col">29-May-26</td>
+            <td class="time-col">21:15</td>
+            <td class="mens">Men's<br>Group 3</td>
+            <td class="mens">Men's<br>Group 4</td>
+            <td class="mens">Men's<br>Group 5</td>
+            <td class="mens">Men's<br>Group 6</td>
+            <td class="mens">Men's<br>Group 7</td>
+            <td class="mens">Men's<br>Group 8</td>
+            <td class="mens">Men's<br>Group 9</td>
+            <td class="mens">Men's<br>Group 10</td>
+          </tr>
+          <tr>
+            <td class="date-col">29-May-26</td>
+            <td class="time-col">22:15</td>
+            <td class="mens">Men's<br>Round 32<br>Match 1</td>
+            <td class="mens">Men's<br>Round 32<br>Match 2</td>
+            <td class="mens">Men's<br>Round 32<br>Match 3</td>
+            <td class="mens">Men's<br>Round 32<br>Match 4</td>
+            <td class="empty" colspan="4"></td>
+          </tr>
+
+          <!-- ══ DAY 2 ══ -->
+          <tr class="day-row"><td colspan="10">Day 2</td></tr>
+
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">08:00</td>
+            <td class="special" colspan="8">Welcoming</td>
+          </tr>
+
+          <!-- 08:30 — 2nd G1,G2 on T1-T2; G4-G8,G10 on T3-T8 (repeat at 10:00) -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">08:30</td>
+            <td class="second">2nd &amp; Below<br>Group 1</td>
+            <td class="second">2nd &amp; Below<br>Group 2</td>
+            <td class="second">2nd &amp; Below<br>Group 4</td>
+            <td class="second">2nd &amp; Below<br>Group 5</td>
+            <td class="second">2nd &amp; Below<br>Group 6</td>
+            <td class="second">2nd &amp; Below<br>Group 7</td>
+            <td class="second">2nd &amp; Below<br>Group 8</td>
+            <td class="second">2nd &amp; Below<br>Group 10</td>
+          </tr>
+
+          <!-- 10:00 — 2nd G3 on T1, T2 empty, G4-G8,G10 repeated on T3-T8 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">10:00</td>
+            <td class="second">2nd &amp; Below<br>Group 3</td>
+            <td class="empty"></td>
+            <td class="second">2nd &amp; Below<br>Group 4</td>
+            <td class="second">2nd &amp; Below<br>Group 5</td>
+            <td class="second">2nd &amp; Below<br>Group 6</td>
+            <td class="second">2nd &amp; Below<br>Group 7</td>
+            <td class="second">2nd &amp; Below<br>Group 8</td>
+            <td class="second">2nd &amp; Below<br>Group 10</td>
+          </tr>
+
+          <!-- 11:30 — 2nd G9 on T1; 5th G3-G9 on T2-T8 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">11:30</td>
+            <td class="second">2nd &amp; Below<br>Group 9</td>
+            <td class="fifth">5th &amp; Below<br>Group 3</td>
+            <td class="fifth">5th &amp; Below<br>Group 4</td>
+            <td class="fifth">5th &amp; Below<br>Group 5</td>
+            <td class="fifth">5th &amp; Below<br>Group 6</td>
+            <td class="fifth">5th &amp; Below<br>Group 7</td>
+            <td class="fifth">5th &amp; Below<br>Group 8</td>
+            <td class="fifth">5th &amp; Below<br>Group 9</td>
+          </tr>
+
+          <!-- 14:30 — 5th G1,G2 on T1-T2; Ladies G1 on T3; Ladies G2 on T4&T5 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">14:30</td>
+            <td class="fifth">5th &amp; Below<br>Group 1</td>
+            <td class="fifth">5th &amp; Below<br>Group 2</td>
+            <td class="ladies">Ladies<br>Group 1</td>
+            <td class="ladies">Ladies<br>Group 2</td>
+            <td class="ladies">Ladies<br>Group 2</td>
+            <td class="empty" colspan="3"></td>
+          </tr>
+
+          <!-- 16:00 — 5th R32 M1-2 + 2nd R32 M1-4 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">16:00</td>
+            <td class="fifth">5th &amp; Below<br>Round 32<br>Match 1</td>
+            <td class="fifth">5th &amp; Below<br>Round 32<br>Match 2</td>
+            <td class="second">2nd &amp; Below<br>Round 32<br>Match 1</td>
+            <td class="second">2nd &amp; Below<br>Round 32<br>Match 2</td>
+            <td class="second">2nd &amp; Below<br>Round 32<br>Match 3</td>
+            <td class="second">2nd &amp; Below<br>Round 32<br>Match 4</td>
+            <td class="empty" colspan="2"></td>
+          </tr>
+
+          <!-- 16:30 — 5th R16 M1-8 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">16:30</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 1</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 2</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 3</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 4</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 5</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 6</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 7</td>
+            <td class="fifth">5th &amp; Below<br>Round 16<br>Match 8</td>
+          </tr>
+
+          <!-- 17:00 — 2nd R16 M1-8 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">17:00</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 1</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 2</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 3</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 4</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 5</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 6</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 7</td>
+            <td class="second">2nd &amp; Below<br>Round 16<br>Match 8</td>
+          </tr>
+
+          <!-- 17:30 — Men's R16 M1-8 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">17:30</td>
+            <td class="mens">Men's<br>Round 16<br>Match 1</td>
+            <td class="mens">Men's<br>Round 16<br>Match 2</td>
+            <td class="mens">Men's<br>Round 16<br>Match 3</td>
+            <td class="mens">Men's<br>Round 16<br>Match 4</td>
+            <td class="mens">Men's<br>Round 16<br>Match 5</td>
+            <td class="mens">Men's<br>Round 16<br>Match 6</td>
+            <td class="mens">Men's<br>Round 16<br>Match 7</td>
+            <td class="mens">Men's<br>Round 16<br>Match 8</td>
+          </tr>
+
+          <!-- 18:00 — 5th QF1-4 on T1-T4 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">18:00</td>
+            <td class="fifth">5th &amp; Below<br>Quarter Final 1</td>
+            <td class="fifth">5th &amp; Below<br>Quarter Final 2</td>
+            <td class="fifth">5th &amp; Below<br>Quarter Final 3</td>
+            <td class="fifth">5th &amp; Below<br>Quarter Final 4</td>
+            <td class="empty" colspan="4"></td>
+          </tr>
+
+          <!-- 18:30 — Men's QF1-4 + 2nd QF1-4 -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">18:30</td>
+            <td class="mens">Men's<br>Quarter Final 1</td>
+            <td class="mens">Men's<br>Quarter Final 2</td>
+            <td class="mens">Men's<br>Quarter Final 3</td>
+            <td class="mens">Men's<br>Quarter Final 4</td>
+            <td class="second">2nd &amp; Below<br>Quarter Final 1</td>
+            <td class="second">2nd &amp; Below<br>Quarter Final 2</td>
+            <td class="second">2nd &amp; Below<br>Quarter Final 3</td>
+            <td class="second">2nd &amp; Below<br>Quarter Final 4</td>
+          </tr>
+
+          <!-- 19:00 — Ladies SF + 5th SF -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">19:00</td>
+            <td class="ladies">Ladies<br>Semi Final 1</td>
+            <td class="ladies">Ladies<br>Semi Final 2</td>
+            <td class="fifth">5th &amp; Below<br>Semi Final 1</td>
+            <td class="fifth">5th &amp; Below<br>Semi Final 2</td>
+            <td class="empty" colspan="4"></td>
+          </tr>
+
+          <!-- 19:30 — Men's SF + 2nd SF -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">19:30</td>
+            <td class="mens">Men's<br>Semi Final 1</td>
+            <td class="mens">Men's<br>Semi Final 2</td>
+            <td class="second">2nd &amp; Below<br>Semi Final 1</td>
+            <td class="second">2nd &amp; Below<br>Semi Final 2</td>
+            <td class="empty" colspan="4"></td>
+          </tr>
+
+          <!-- 20:00 — Ladies Final + 5th Final -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">20:00</td>
+            <td class="ladies">Ladies<br>Final</td>
+            <td class="fifth">5th &amp; Below<br>Final</td>
+            <td class="empty" colspan="6"></td>
+          </tr>
+
+          <!-- Men's Final + 2nd Final -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">20:30</td>
+            <td class="mens">Men's<br>Final</td>
+            <td class="second">2nd &amp; Below<br>Final</td>
+            <td class="empty" colspan="6"></td>
+          </tr>
+
+          <!-- 20:45 Medal Ceremony -->
+          <tr>
+            <td class="date-col">30-May-26</td>
+            <td class="time-col">21:00</td>
+            <td class="special" colspan="8">Medal Ceremony</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      const btn = document.getElementById('hamburger');
+      nav.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
