@@ -65,8 +65,8 @@
     "Seed club": "Duinefontein TTC",
     "Name 2": "Craig Fortuin",
     "Club 2": "NEXUS",
-    "Name 3": "Demos Dracoulides",
-    "Club 3": "Ravens",
+    "Name 3": "Quentin Thomas",
+    "Club 3": "TOP",
     "Name 4": "Lateef Samad",
     "Club 4": "Community House",
     "Day": "Friday",
@@ -76,6 +76,21 @@
   },
   {
     "Group": 6,
+    "Seed": "Lindsay October",
+    "Seed club": "TOP",
+    "Name 2": "Bernard Stewe",
+    "Club 2": "Goodwood",
+    "Name 3": "Thabiet Adams",
+    "Club 3": "Bishop Lavis",
+    "Name 4": "Sameer Parker",
+    "Club 4": "NEXUS",
+    "Day": "Friday",
+    "Date": "29-May",
+    "Time": "19:15",
+    "Table": 4
+  },
+  {
+    "Group": 7,
     "Seed": "David Nwafor",
     "Seed club": "Goodwood",
     "Name 2": "Gaston Koetaan",
@@ -87,10 +102,10 @@
     "Day": "Friday",
     "Date": "29-May",
     "Time": "19:15",
-    "Table": 4
+    "Table": 5
   },
   {
-    "Group": 7,
+    "Group": 8,
     "Seed": "Joshua Du Plooy",
     "Seed club": "Ravens",
     "Name 2": "Sedick Abrahams",
@@ -102,10 +117,10 @@
     "Day": "Friday",
     "Date": "29-May",
     "Time": "19:15",
-    "Table": 5
+    "Table": 6
   },
   {
-    "Group": 8,
+    "Group": 9,
     "Seed": "Ashley Wesson",
     "Seed club": "Liv Ken",
     "Name 2": "Gielie Matee",
@@ -117,10 +132,10 @@
     "Day": "Friday",
     "Date": "29-May",
     "Time": "19:15",
-    "Table": 6
+    "Table": 7
   },
   {
-    "Group": 9,
+    "Group": 10,
     "Seed": "Dirk Coetzee",
     "Seed club": "Duinefontein TTC",
     "Name 2": "Muaath Adams",
@@ -129,21 +144,6 @@
     "Club 3": "Ravens",
     "Name 4": "Hopewell Ntuli",
     "Club 4": "CPUT",
-    "Day": "Friday",
-    "Date": "29-May",
-    "Time": "19:15",
-    "Table": 7
-  },
-  {
-    "Group": 10,
-    "Seed": "Bernard Stewe",
-    "Seed club": "Goodwood",
-    "Name 2": "Thabiet Adams",
-    "Club 2": "Bishop Lavis",
-    "Name 3": "Sameer Parker",
-    "Club 3": "NEXUS",
-    "Name 4": "Ezra Msindeni",
-    "Club 4": "Ravens",
     "Day": "Friday",
     "Date": "29-May",
     "Time": "19:15",

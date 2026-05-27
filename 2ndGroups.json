@@ -16,21 +16,6 @@
   },
   {
     "Group": 2,
-    "Seed": "Tamika Van Aa",
-    "Seed club": "Boundary",
-    "Name 2": "Felix Monday",
-    "Club 2": "Community House",
-    "Name 3": "Saaliegh Jabaar",
-    "Club 3": "NEXUS",
-    "Name 4": "",
-    "Club 4": "",
-    "Day": "Saturday",
-    "Date": "30-May",
-    "Time": "08:30",
-    "Table": 2
-  },
-  {
-    "Group": 3,
     "Seed": "Llewellyn Bartlett",
     "Seed club": "MP Royals",
     "Name 2": "Yusuf Ebrahim",
@@ -41,11 +26,11 @@
     "Club 4": "",
     "Day": "Saturday",
     "Date": "30-May",
-    "Time": "09:45",
-    "Table": 1
+    "Time": "08:30",
+    "Table": 2
   },
   {
-    "Group": 4,
+    "Group": 3,
     "Seed": "Tian Louw",
     "Seed club": "Maties",
     "Name 2": "Pedro Fortuin",
@@ -56,11 +41,11 @@
     "Club 4": "Community House",
     "Day": "Saturday",
     "Date": "30-May",
-    "Time": "08:30",
-    "Table": 3
+    "Time": "09:45",
+    "Table": 1
   },
   {
-    "Group": 5,
+    "Group": 4,
     "Seed": "Gielie Matee",
     "Seed club": "TOP",
     "Name 2": "Timothy Sabad",
@@ -72,10 +57,10 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 4
+    "Table": 3
   },
   {
-    "Group": 6,
+    "Group": 5,
     "Seed": "Amien Phillips",
     "Seed club": "NEXUS",
     "Name 2": "Le Roux Strydom",
@@ -87,10 +72,10 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 5
+    "Table": 4
   },
   {
-    "Group": 7,
+    "Group": 6,
     "Seed": "DJ Swanevelder",
     "Seed club": "Maties",
     "Name 2": "Andre Taljaard",
@@ -102,10 +87,10 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 6
+    "Table": 5
   },
   {
-    "Group": 8,
+    "Group": 7,
     "Seed": "Craig Fortuin",
     "Seed club": "NEXUS",
     "Name 2": "Abubakr Manuel",
@@ -117,12 +102,12 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 7
+    "Table": 6
   },
   {
-    "Group": 9,
-    "Seed": "Quentin Thomas",
-    "Seed club": "TOP",
+    "Group": 8,
+    "Seed": "",
+    "Seed club": "",
     "Name 2": "Sedick Abrahams",
     "Club 2": "STEPH'S",
     "Name 3": "Brendan o' Connell",
@@ -131,11 +116,11 @@
     "Club 4": "Community House",
     "Day": "Saturday",
     "Date": "30-May",
-    "Time": "11:00",
-    "Table": 1
+    "Time": "08:30",
+    "Table": 7
   },
   {
-    "Group": 10,
+    "Group": 9,
     "Seed": "Allan Clark",
     "Seed club": "TOP",
     "Name 2": "Enrico Louw",
@@ -143,6 +128,21 @@
     "Name 3": "Soso",
     "Club 3": "Bishop Lavis",
     "Name 4": "Ilyaas Patel",
+    "Club 4": "MP Royals",
+    "Day": "Saturday",
+    "Date": "30-May",
+    "Time": "11:00",
+    "Table": 1
+  },
+  {
+    "Group": 10,
+    "Seed": "",
+    "Seed club": "",
+    "Name 2": "Felix Monday",
+    "Club 2": "Community House",
+    "Name 3": "Saaliegh Jabaar",
+    "Club 3": "NEXUS",
+    "Name 4": "Faeez Zoutenburg",
     "Club 4": "MP Royals",
     "Day": "Saturday",
     "Date": "30-May",
