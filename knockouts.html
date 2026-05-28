@@ -8,7 +8,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
 
-    /* ── Top nav ── */
     nav.top-nav {
       background: #111111;
       display: flex;
@@ -17,9 +16,7 @@
       padding: 0 16px;
       position: relative;
     }
-    .nav-links {
-      display: flex;
-    }
+    .nav-links { display: flex; }
     nav.top-nav a {
       color: #ccc;
       text-decoration: none;
@@ -33,7 +30,6 @@
     nav.top-nav a:hover { background: #1a1a1a; color: #fff; }
     nav.top-nav a.active { background: #2EB4EA; color: #000; }
 
-    /* Hamburger button */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -55,7 +51,6 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ── Page header ── */
     .page-header {
       background: #2EB4EA;
       color: #000;
@@ -65,15 +60,10 @@
       gap: 16px;
       border-top: 1px solid #1a9fd4;
     }
-    .page-header img {
-      height: 56px;
-      width: auto;
-      object-fit: contain;
-    }
+    .page-header img { height: 56px; width: auto; object-fit: contain; }
     .page-header-text h1 { font-size: 24px; }
     .page-header-text p { color: rgba(0,0,0,0.55); margin-top: 3px; font-size: 13px; }
 
-    /* ── Event tabs ── */
     .event-tabs {
       display: flex;
       background: #fff;
@@ -97,10 +87,102 @@
     .event-tabs button:hover { color: #2EB4EA; }
     .event-tabs button.active { color: #2EB4EA; border-bottom-color: #2EB4EA; }
 
-    /* ── Content ── */
     .content { padding: 32px; }
     .event-panel { display: none; }
     .event-panel.active { display: block; }
+
+    /* Bracket */
+    .bracket-scroll { overflow-x: auto; border-radius: 10px; }
+
+    .bracket {
+      display: flex;
+      align-items: stretch;
+      min-width: max-content;
+      position: relative;
+    }
+
+    .round-col {
+      display: flex;
+      flex-direction: column;
+      width: 230px;
+      flex-shrink: 0;
+    }
+
+    .round-header {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 10px 8px;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .round-matches {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 6px 0;
+    }
+
+    .match-card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin: 4px 10px;
+      flex-shrink: 0;
+    }
+
+    .match-player {
+      display: flex;
+      align-items: center;
+      padding: 7px 10px;
+      gap: 6px;
+      min-height: 30px;
+    }
+    .match-player + .match-player { border-top: 1px solid #f0f0f0; }
+
+    .player-name {
+      flex: 2;
+      font-size: 12.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .player-club {
+      flex: 2;
+      font-size: 11px;
+      color: #888;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .player-score {
+      width: 22px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .match-player.winner .player-score { color: #2EB4EA; }
+    .match-player.loser .player-name   { color: #bbb; }
+    .match-player.loser .player-score  { color: #bbb; }
+
+    .match-meta {
+      padding: 4px 10px 5px;
+      font-size: 10.5px;
+      color: #888;
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+      white-space: nowrap;
+    }
 
     .placeholder {
       background: #fff;
@@ -112,44 +194,40 @@
       font-size: 15px;
     }
 
-    /* ── Mobile ── */
+    .bracket-connectors {
+      position: absolute;
+      top: 0; left: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
     @media (max-width: 600px) {
       .hamburger { display: flex; }
-
       .nav-links {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        top: 100%; left: 0; right: 0;
         background: #111111;
         z-index: 100;
         border-top: 1px solid #2a2a2a;
       }
       .nav-links.open { display: flex; }
-
-      nav.top-nav a {
-        padding: 14px 24px;
-        border-bottom: 1px solid #2a2a2a;
-      }
-
+      nav.top-nav a { padding: 14px 24px; border-bottom: 1px solid #2a2a2a; }
       .page-header { padding: 16px 20px; }
       .page-header img { height: 44px; }
       .page-header-text h1 { font-size: 20px; }
-
       .event-tabs { padding: 0 8px; }
       .event-tabs button { padding: 12px 14px; font-size: 13px; }
-
       .content { padding: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation -->
   <nav class="top-nav">
     <div class="nav-links" id="navLinks">
+      
       <a href="entries.html">Entries</a>
       <a href="knockouts.html" class="active">Knockouts</a>
       <a href="schedule.html">Schedule</a>
@@ -159,7 +237,6 @@
     </button>
   </nav>
 
-  <!-- Page Header -->
   <div class="page-header">
     <img src="logo.png" alt="Senior Open 2026 Logo" />
     <div class="page-header-text">
@@ -168,7 +245,6 @@
     </div>
   </div>
 
-  <!-- Event Tabs -->
   <div class="event-tabs">
     <button class="active" onclick="showEvent('mens', this)">Men's Open</button>
     <button onclick="showEvent('ladies', this)">Ladies Open</button>
@@ -176,28 +252,35 @@
     <button onclick="showEvent('fifth', this)">5th &amp; Below</button>
   </div>
 
-  <!-- Content -->
   <div class="content">
     <div id="panel-mens" class="event-panel active">
-      <div class="placeholder">Men's Open knockout bracket will appear here</div>
+      <div class="bracket-scroll" id="mens-bracket"><p style="color:#999">Loading…</p></div>
     </div>
     <div id="panel-ladies" class="event-panel">
-      <div class="placeholder">Ladies Open knockout bracket will appear here</div>
+      <div class="bracket-scroll" id="ladies-bracket"><p style="color:#999">Loading…</p></div>
     </div>
     <div id="panel-second" class="event-panel">
-      <div class="placeholder">2nd &amp; Below knockout bracket will appear here</div>
+      <div class="bracket-scroll" id="second-bracket"><p style="color:#999">Loading…</p></div>
     </div>
     <div id="panel-fifth" class="event-panel">
-      <div class="placeholder">5th &amp; Below knockout bracket will appear here</div>
+      <div class="bracket-scroll" id="fifth-bracket"><p style="color:#999">Loading…</p></div>
     </div>
   </div>
 
   <script>
+    const ROUND_ORDER  = ['32', '16', 'Q', 'S', 'F'];
+    const ROUND_LABELS = {
+      '32': 'Round of 32',
+      '16': 'Round of 16',
+      'Q' : 'Quarterfinal',
+      'S' : 'Semifinal',
+      'F' : 'Final'
+    };
+    const SLOT_HEIGHT = 100;
+
     function toggleMenu() {
-      const nav = document.getElementById('navLinks');
-      const btn = document.getElementById('hamburger');
-      nav.classList.toggle('open');
-      btn.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
     }
 
     function showEvent(id, btn) {
@@ -206,6 +289,155 @@
       document.getElementById('panel-' + id).classList.add('active');
       btn.classList.add('active');
     }
+
+    function isBlank(v) {
+      if (v === null || v === undefined) return true;
+      const s = String(v).trim().toLowerCase();
+      return s === '' || s === '0' || s === 'bye';
+    }
+
+    function isValidBo5(s1, s2) {
+      const n1 = Number(s1), n2 = Number(s2);
+      return (n1 === 3 && n2 >= 0 && n2 <= 2) ||
+             (n2 === 3 && n1 >= 0 && n1 <= 2);
+    }
+
+    function buildMatchCard(m) {
+      const n1 = isBlank(m['Name 1']) ? '' : String(m['Name 1']);
+      const c1 = isBlank(m['Club 1']) ? '' : String(m['Club 1']);
+      const n2 = isBlank(m['Name 2']) ? '' : String(m['Name 2']);
+      const c2 = isBlank(m['Club 2']) ? '' : String(m['Club 2']);
+      const s1 = Number(m['Score 1']) || 0;
+      const s2 = Number(m['Score 2']) || 0;
+      const valid = isValidBo5(s1, s2);
+      const w1 = valid && s1 === 3;
+      const w2 = valid && s2 === 3;
+
+      const hasDate = m['Date'] && String(m['Date']).trim() !== '';
+      const meta = hasDate
+        ? `${m['Date']} @ ${m['Time']}${m['Table'] ? ' &middot; Table ' + m['Table'] : ''}`
+        : '';
+
+      const cls1 = valid ? (w1 ? 'winner' : 'loser') : '';
+      const cls2 = valid ? (w2 ? 'winner' : 'loser') : '';
+
+      return `<div class="match-card">
+        <div class="match-player ${cls1}">
+          <span class="player-name">${n1}</span>
+          <span class="player-club">${c1}</span>
+          <span class="player-score">${valid ? s1 : ''}</span>
+        </div>
+        <div class="match-player ${cls2}">
+          <span class="player-name">${n2}</span>
+          <span class="player-club">${c2}</span>
+          <span class="player-score">${valid ? s2 : ''}</span>
+        </div>
+        ${meta ? `<div class="match-meta">${meta}</div>` : ''}
+      </div>`;
+    }
+
+    function drawConnectors(bracketEl) {
+      const roundCols = bracketEl.querySelectorAll('.round-col');
+      if (roundCols.length < 2) return;
+
+      const bRect = bracketEl.getBoundingClientRect();
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('bracket-connectors');
+      svg.setAttribute('width',  bRect.width);
+      svg.setAttribute('height', bRect.height);
+      bracketEl.appendChild(svg);
+
+      for (let i = 0; i < roundCols.length - 1; i++) {
+        const leftCards  = roundCols[i].querySelectorAll('.match-card');
+        const rightCards = roundCols[i + 1].querySelectorAll('.match-card');
+        const ratio = leftCards.length / rightCards.length;
+
+        for (let j = 0; j < rightCards.length; j++) {
+          const rCard = rightCards[j];
+          const rRect = rCard.getBoundingClientRect();
+          const yr = rRect.top + rRect.height / 2 - bRect.top;
+          const xr = rRect.left - bRect.left;
+
+          const feedCards = [];
+          for (let k = 0; k < Math.round(ratio); k++) {
+            const lc = leftCards[j * Math.round(ratio) + k];
+            if (lc) feedCards.push(lc);
+          }
+          if (!feedCards.length) continue;
+
+          const yPos = feedCards.map(c => {
+            const r = c.getBoundingClientRect();
+            return r.top + r.height / 2 - bRect.top;
+          });
+          const xL   = feedCards[0].getBoundingClientRect().right - bRect.left;
+          const midX  = xL + (xr - xL) / 2;
+          const yTop  = Math.min(...yPos);
+          const yBot  = Math.max(...yPos);
+
+          let d = '';
+          yPos.forEach(y => { d += `M ${xL} ${y} H ${midX} `; });
+          if (yPos.length > 1) d += `M ${midX} ${yTop} V ${yBot} `;
+          d += `M ${midX} ${yr} H ${xr}`;
+
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', d);
+          path.setAttribute('stroke', '#ccc');
+          path.setAttribute('stroke-width', '1.5');
+          path.setAttribute('fill', 'none');
+          svg.appendChild(path);
+        }
+      }
+    }
+
+    function renderBracket(data, containerId) {
+      const roundMap = {};
+      data.forEach(m => {
+        const key = String(m.Round);
+        if (!roundMap[key]) roundMap[key] = [];
+        roundMap[key].push(m);
+      });
+      Object.values(roundMap).forEach(arr => arr.sort((a, b) => a.Match - b.Match));
+
+      const rounds = ROUND_ORDER.filter(r => roundMap[r]);
+      const maxMatches = Math.max(...rounds.map(r => roundMap[r].length));
+      const totalHeight = maxMatches * SLOT_HEIGHT;
+
+      let html = `<div class="bracket">`;
+      rounds.forEach(r => {
+        const matches = roundMap[r];
+        html += `<div class="round-col">
+          <div class="round-header">${ROUND_LABELS[r] || r}</div>
+          <div class="round-matches" style="height:${totalHeight}px">
+            ${matches.map(m => buildMatchCard(m)).join('')}
+          </div>
+        </div>`;
+      });
+      html += '</div>';
+
+      const container = document.getElementById(containerId);
+      container.innerHTML = html;
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        drawConnectors(container.querySelector('.bracket'));
+      }));
+    }
+
+    async function loadBracket(file, containerId, eventName) {
+      try {
+        const r = await fetch(file);
+        if (!r.ok) throw new Error('not found');
+        const data = await r.json();
+        renderBracket(data, containerId);
+      } catch {
+        document.getElementById(containerId).innerHTML =
+          `<div class="placeholder">${eventName} knockout bracket will appear here</div>`;
+      }
+    }
+
+    loadBracket('Knockouts/MensKnockouts.json',        'mens-bracket',   "Men's Open");
+    loadBracket('Knockouts/LadiesKnockouts.json',      'ladies-bracket', 'Ladies Open');
+    loadBracket('Knockouts/2ndAndBelowKnockouts.json', 'second-bracket', '2nd &amp; Below');
+    loadBracket('Knockouts/5thAndBelowKnockouts.json', 'fifth-bracket',  '5th &amp; Below');
   </script>
 
 </body>

@@ -22,8 +22,8 @@
     "Club 2": "Community House",
     "Name 3": "Ethan Hinrichsen",
     "Club 3": "UCT",
-    "Name 4": "",
-    "Club 4": "",
+    "Name 4": "Saaliegh Jabaar",
+    "Club 4": "NEXUS",
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
@@ -35,14 +35,14 @@
     "Seed club": "Maties",
     "Name 2": "Pedro Fortuin",
     "Club 2": "Goodwood",
-    "Name 3": "",
-    "Club 3": "",
+    "Name 3": "Faeez Zoutenburg",
+    "Club 3": "MP Royals",
     "Name 4": "Janine Sait",
     "Club 4": "Community House",
     "Day": "Saturday",
     "Date": "30-May",
-    "Time": "09:45",
-    "Table": 1
+    "Time": "08:30",
+    "Table": 3
   },
   {
     "Group": 4,
@@ -57,7 +57,7 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 3
+    "Table": 4
   },
   {
     "Group": 5,
@@ -72,7 +72,7 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 4
+    "Table": 5
   },
   {
     "Group": 6,
@@ -87,7 +87,7 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 5
+    "Table": 6
   },
   {
     "Group": 7,
@@ -102,12 +102,12 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 6
+    "Table": 7
   },
   {
     "Group": 8,
-    "Seed": "",
-    "Seed club": "",
+    "Seed": "Felix Monday",
+    "Seed club": "Community House",
     "Name 2": "Sedick Abrahams",
     "Club 2": "STEPH'S",
     "Name 3": "Brendan o' Connell",
@@ -117,7 +117,7 @@
     "Day": "Saturday",
     "Date": "30-May",
     "Time": "08:30",
-    "Table": 7
+    "Table": 8
   },
   {
     "Group": 9,
@@ -133,20 +133,5 @@
     "Date": "30-May",
     "Time": "11:00",
     "Table": 1
-  },
-  {
-    "Group": 10,
-    "Seed": "",
-    "Seed club": "",
-    "Name 2": "Felix Monday",
-    "Club 2": "Community House",
-    "Name 3": "Saaliegh Jabaar",
-    "Club 3": "NEXUS",
-    "Name 4": "Faeez Zoutenburg",
-    "Club 4": "MP Royals",
-    "Day": "Saturday",
-    "Date": "30-May",
-    "Time": "08:30",
-    "Table": 8
   }
 ]
