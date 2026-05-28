@@ -6,7 +6,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Senior Open 2026 – Entries</title>
+  <title>Senior Open 2026 – Groups</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
@@ -54,6 +54,7 @@
       border-radius: 2px;
       transition: all 0.3s;
     }
+    /* Hamburger → X when open */
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -105,22 +106,49 @@
     .event-panel { display: none; }
     .event-panel.active { display: block; }
 
-    /* ── Club cards grid ── */
-    .clubs-grid {
+    .placeholder {
+      background: #fff;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 48px;
+      text-align: center;
+      color: #999;
+      font-size: 15px;
+    }
+
+    /* ── Group cards grid ── */
+    .groups-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
     }
 
-    .club-card {
+    .group-card {
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0,0,0,0.12);
     }
 
-    /* Club name banner */
-    .club-card-header {
+    /* Top bar — date / time / table (populated from JSON later) */
+    .group-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 14px;
+      background: #f7f7f7;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      color: #555;
+      min-height: 38px;
+    }
+    .group-card-meta .meta-table {
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* Coloured group name banner */
+    .group-card-header {
       background: #2EB4EA;
       color: #000;
       padding: 11px 16px;
@@ -132,24 +160,40 @@
     }
 
     /* Player rows */
-    .club-card table {
+    .group-card table {
       width: 100%;
       border-collapse: collapse;
     }
 
-    .club-card table td {
+    .group-card table td {
       padding: 10px 14px;
       font-size: 14px;
       border-top: 1px solid #f0f0f0;
       vertical-align: middle;
     }
 
-    .club-card table tr:hover td {
+    .group-card table tr:hover td {
       background: #f5fffe;
     }
 
+    /* Seed letter */
+    .group-card table td.seed {
+      width: 28px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #888;
+      padding-right: 4px;
+    }
+
+    /* Club name */
+    .group-card table td.club {
+      color: #666;
+      font-size: 13px;
+      text-align: right;
+    }
+
     @media (max-width: 600px) {
-      .clubs-grid { grid-template-columns: 1fr; }
+      .groups-grid { grid-template-columns: 1fr; }
     }
 
     /* ── Mobile ── */
@@ -190,9 +234,8 @@
   <!-- Top Navigation -->
   <nav class="top-nav">
     <div class="nav-links" id="navLinks">
-      
-      <a href="groups.html">Groups</a>
-      <a href="entries.html" class="active">Entries</a>
+      <a href="groups.html" class="active">Groups</a>
+      <a href="entries.html">Entries</a>
       <a href="knockouts.html">Knockouts</a>
       <a href="schedule.html">Schedule</a>
     </div>
@@ -205,7 +248,7 @@
   <div class="page-header">
     <img src="logo.png" alt="Senior Open 2026 Logo" />
     <div class="page-header-text">
-      <h1>Entries</h1>
+      <h1>Groups</h1>
       <p>Senior Open 2026</p>
     </div>
   </div>
@@ -221,23 +264,23 @@
   <!-- Content -->
   <div class="content">
     <div id="panel-mens" class="event-panel active">
-      <div class="clubs-grid" id="mens-grid">
-        <p style="color:#999;">Loading entries…</p>
+      <div class="groups-grid" id="mens-grid">
+        <p style="color:#999;">Loading groups…</p>
       </div>
     </div>
     <div id="panel-ladies" class="event-panel">
-      <div class="clubs-grid" id="ladies-grid">
-        <p style="color:#999;">Loading entries…</p>
+      <div class="groups-grid" id="ladies-grid">
+        <p style="color:#999;">Loading groups…</p>
       </div>
     </div>
     <div id="panel-second" class="event-panel">
-      <div class="clubs-grid" id="second-grid">
-        <p style="color:#999;">Loading entries…</p>
+      <div class="groups-grid" id="second-grid">
+        <p style="color:#999;">Loading groups…</p>
       </div>
     </div>
     <div id="panel-fifth" class="event-panel">
-      <div class="clubs-grid" id="fifth-grid">
-        <p style="color:#999;">Loading entries…</p>
+      <div class="groups-grid" id="fifth-grid">
+        <p style="color:#999;">Loading groups…</p>
       </div>
     </div>
   </div>
@@ -257,49 +300,52 @@
       btn.classList.add('active');
     }
 
-    function extractPlayers(data) {
-      // Build a map: club name -> [player names]
-      const clubMap = {};
-
-      data.forEach(group => {
-        const players = [
-          { name: group['Seed'],   club: group['Seed club'] },
-          { name: group['Name 2'], club: group['Club 2'] },
-          { name: group['Name 3'], club: group['Club 3'] },
-          { name: group['Name 4'], club: group['Club 4'] },
-        ];
-
-        players.forEach(p => {
-          if (!p.name || p.name.trim() === '') return;
-          const club = (p.club && p.club.trim() !== '') ? p.club.trim() : 'Unknown';
-          if (!clubMap[club]) clubMap[club] = [];
-          clubMap[club].push(p.name.trim());
-        });
-      });
-
-      return clubMap;
+    // Format "19:30" → "19h30"
+    function fmtTime(t) {
+      return t ? t.replace(':', 'h') : '–';
     }
 
-    function buildClubCard(club, players) {
-      const rows = players.map(name =>
-        `<tr><td>${name}</td></tr>`
+    // Format day to 3-letter abbreviation
+    function fmtDay(d) {
+      return d ? d.slice(0, 3) : '–';
+    }
+
+    function buildCard(g, label) {
+      const seeds = ['A','B','C','D'];
+      const players = [
+        { name: g['Seed'],   club: g['Seed club'] },
+        { name: g['Name 2'], club: g['Club 2'] },
+        { name: g['Name 3'], club: g['Club 3'] },
+        { name: g['Name 4'], club: g['Club 4'] },
+      ].filter(p => p.name && p.name.trim() !== '');
+
+      const rows = players.map((p, i) =>
+        `<tr>
+          <td class="seed">${seeds[i]}</td>
+          <td>${p.name}</td>
+          <td class="club">${p.club}</td>
+        </tr>`
       ).join('');
 
+      const datetime = `${fmtDay(g.Day)}, ${g.Date} @ ${fmtTime(g.Time)}`;
+      const table    = g.Table ? `Table ${g.Table}` : '–';
+
       return `
-        <div class="club-card">
-          <div class="club-card-header">${club}</div>
+        <div class="group-card">
+          <div class="group-card-meta">
+            <span class="meta-datetime">${datetime}</span>
+            <span class="meta-table">${table}</span>
+          </div>
+          <div class="group-card-header">${label} Group ${g.Group}</div>
           <table><tbody>${rows}</tbody></table>
         </div>`;
     }
 
-    function loadEntries(file, gridId) {
+    function loadGroups(file, gridId, label) {
       fetch(file + '?v=' + Date.now())
         .then(r => r.json())
         .then(data => {
-          const clubMap = extractPlayers(data);
-          const sorted = Object.keys(clubMap).sort();
-          document.getElementById(gridId).innerHTML =
-            sorted.map(club => buildClubCard(club, clubMap[club])).join('');
+          document.getElementById(gridId).innerHTML = data.map(g => buildCard(g, label)).join('');
         })
         .catch(() => {
           document.getElementById(gridId).innerHTML =
@@ -307,10 +353,10 @@
         });
     }
 
-    loadEntries('MensGroups.json',   'mens-grid');
-    loadEntries('LadiesGroups.json', 'ladies-grid');
-    loadEntries('2ndGroups.json',    'second-grid');
-    loadEntries('5thGroups.json',    'fifth-grid');
+    loadGroups('MensGroups.json',   'mens-grid',   "Men's Open");
+    loadGroups('LadiesGroups.json', 'ladies-grid', 'Ladies');
+    loadGroups('2ndGroups.json',    'second-grid', '2nd & Below');
+    loadGroups('5thGroups.json',    'fifth-grid',  '5th & Below');
     </script>
 
 </body>
